@@ -9,7 +9,6 @@ import ru.fisenko.urlRestApp.integration.RestClient;
 import ru.fisenko.urlRestApp.models.Url;
 import ru.fisenko.urlRestApp.repositories.UrlRepository;
 
-
 import java.util.*;
 
 @Service
@@ -38,12 +37,16 @@ public class UrlService {
     }
 
     private void checkNext() {
-        if(currentUrls>0)return;
-        else if (urlRepository.count()>0)
-            currentUrls=urlRepository.count();
+        if (currentUrls > 0) {
+            return;
+        }
+        long urlCountInRepo = urlRepository.count();
+        if (urlCountInRepo > 0) {
+            currentUrls = urlCountInRepo;
+        }
         else {
             generateUrls(urlCount);
-            currentUrls=urlRepository.count();
+            currentUrls = urlRepository.count();
         }
     }
 
@@ -53,14 +56,10 @@ public class UrlService {
         long salt = random.nextLong();
         long time = Calendar.getInstance().getTimeInMillis();
         List<String> urls = new ArrayList<>();
-        for(int i = 0; i < urlCount; i++)
+        for (int i = 0; i < urlCount; i++)
             urls.add(DigestUtils.md5Hex(salt + i + time + ""));
         urls.removeAll(Arrays.asList(restClient.sendPostRequest(urls)));
         urlRepository.saveAll(urls.stream().map(Url::new).toList());
-        currentUrls=urlRepository.count();
+        currentUrls = urlRepository.count();
     }
-
-
-
-
 }

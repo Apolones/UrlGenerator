@@ -8,13 +8,14 @@ import ru.fisenko.urlRestApp.services.UrlService;
 @RestController
 public class UrlController {
     private final UrlService urlService;
+
     @Autowired
     public UrlController(UrlService urlService) {
         this.urlService = urlService;
     }
 
     @GetMapping("/generate")
-    public String newUrl (){
+    public String newUrl() {
         return urlService.getUrl();
     }
 }

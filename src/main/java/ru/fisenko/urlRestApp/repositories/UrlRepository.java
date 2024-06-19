@@ -6,5 +6,5 @@ import ru.fisenko.urlRestApp.models.Url;
 
 @Repository
 public interface UrlRepository extends JpaRepository<Url, String> {
-     Url findFirstByUrlIsNotNull();
+    Url findFirstByUrlIsNotNull();
 }

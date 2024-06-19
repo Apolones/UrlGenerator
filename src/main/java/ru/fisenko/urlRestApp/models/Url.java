@@ -1,6 +1,5 @@
 package ru.fisenko.urlRestApp.models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,16 +12,14 @@ public class Url {
     @Column(name = "url")
     private String url;
 
-    public Url() {};
+    public Url() {
+    }
+
     public Url(String url) {
         this.url = url;
     }
 
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }
